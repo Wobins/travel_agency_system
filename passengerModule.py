@@ -17,7 +17,6 @@ def add_passenger():
     passenger["luggage_weight"] = passenger_weight
     return passenger
 
-print(add_passenger())
 
 
 
