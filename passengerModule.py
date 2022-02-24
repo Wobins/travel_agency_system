@@ -1,15 +1,19 @@
 import csv
 
-def add_passenger():
-    list_passengers = []
 
+# function to register many passengers in the agency
+def register_passenger():
+    list_passengers = []  # list of all my passengers
+
+    # passenger template
     passenger_init = {
         "passenger_id": "",
         "passenger_name": "",
         "passenger_weight": 0.0
     }
 
-    def enroll_passenger():
+    # function to set a single passenger
+    def set_passenger():
         passenger_name = input("What is the name of the passenger?\n\tEnter his name: \t")
         passenger_id = input("What is the passenger's national Id?\n\tEnter his id: \t")
         passenger_weight = float(input("How heavy are his luggage??\n\tEnter his luggage's weight: \t"))
@@ -20,15 +24,15 @@ def add_passenger():
         passenger["passenger_weight"] = passenger_weight
         return passenger
 
-    passenger = enroll_passenger()
+    passenger = set_passenger()
     list_passengers.append(passenger)
 
-    response = input("Do you want to pursue another enrollment?\n\t Yes/No? ")
+    response = input("Do you want to set another passenger?\n\t Yes/No? ")
 
     while response.lower() == "yes":
-        passenger = enroll_passenger()
+        passenger = set_passenger()
         list_passengers.append(passenger)
-        response = input("Do you want to pursue another enrollment?\n\t Yes/No? ")
+        response = input("Do you want to set another passenger?\n\t Yes/No? ")
 
     with open('all-passengers.csv', 'w', newline='') as f:
         for person in list_passengers:
@@ -38,15 +42,12 @@ def add_passenger():
     return list_passengers
 
 
-def add_to_bus():
-    list_bus = []
+# function to get back all the passenger's ids
+def get_passengers_ids():
+    list_ids = []
     with open('all-passengers.csv') as f:
         csvReader = csv.reader(f, delimiter=',')
         for row in csvReader:
-            list_bus.append(row[0])
+            list_ids.append(row[0])
 
-    return list_bus
-
-
-
-
+    return list_ids
