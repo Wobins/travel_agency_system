@@ -20,7 +20,6 @@ def create_fleet():
 
     car = add_car()
     cars_fleet.append(car)
-    print(cars_fleet)
 
     response = input("Do you want to add a car to the fleet?\n\t Yes/No? ")
 
@@ -29,22 +28,17 @@ def create_fleet():
         cars_fleet.append(car)
         response = input("Do you want to proceed your shopping?\n\t Yes/No? ")
 
-    f = open("fleet.csv", "w")
-    f.write("\t\t\t\tListe des bus de notre flotte!!\n")
-    f.write("vin,seats\n")
-    f.close()
+    with open('fleet.csv', 'w', newline='') as f:
+        for bus in cars_fleet:
+            writer = csv.writer(f)
+            writer.writerow([bus["car_vin"], bus["car_seats"]])
 
-    for bus in cars_fleet:
-        f = open('fleet.csv', 'a')
-        writer = csv.writer(f)
-        writer.writerow([bus["car_vin"], bus["car_seats"]])
-    #f.close()
+    return cars_fleet
 
-# for x in range(2):
-#     car = add_car()
-#     cars_fleet.append(car)
-#
-# t = PrettyTable(['Car VIN', 'Car seats'])
-# for car in cars_fleet:
-# 	t.add_row([car["car_vin"], car["car_seats"]])
-# print(t)
+def print_seats():
+    with open('fleet.csv') as f:
+        csvReader = csv.reader(f, delimiter=',')
+        print("Here below are each bus and its number of seats")
+        for row in csvReader:
+            print("\tBus VIN: {}\t\tSeats: {}".format(row[0], row[1]))
+
